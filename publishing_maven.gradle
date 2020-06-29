@@ -1,0 +1,23 @@
+apply plugin: 'com.novoda.bintray-release'
+Properties properties = new Properties()
+properties.load(rootProject.file('local.properties').newDataInputStream())
+
+publish {
+    repoName = project.ext.repoName
+    userOrg = properties.getProperty("bintray.user")
+    bintrayUser = properties.getProperty("bintray.user")
+    bintrayKey = properties.getProperty("bintray.apikey")
+
+    groupId = project.ext.groupId
+    artifactId = project.ext.artifactId
+
+    publishVersion = project.ext.publishVersion
+    desc = project.ext.desc
+    website = 'https://github.com/EricHyh/PasswordView'
+}
+
+//https://segmentfault.com/a/1190000012263759
+
+//1.generatePomFileForReleasePublication
+//2.publishReleasePublicationToMavenLocal
+//3.gradlew bintrayUpload -PdryRun=false
