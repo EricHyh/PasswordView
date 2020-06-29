@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <com.hyh.widget.PasswordView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#55005555"
+        android:paddingTop="40dp"
+        android:paddingBottom="20dp"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:boxBackgroundColor="#FF0000"
+        app:boxChainStyle="free"
+        app:boxHeightRatio="1.2"
+        app:boxMeasureMode="free"
+        app:boxSpacePercent="0.01"
+        app:boxType="rect"
+        app:boxWidth="50dp"
+        app:rectBoxRadius="10dp" />
+
+</LinearLayout>

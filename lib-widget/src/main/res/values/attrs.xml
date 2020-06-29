@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="PasswordView">
+
+        <attr name="passwordLength" format="integer" />
+        <attr name="passwordType" format="enum">
+            <enum name="stars" value="0" />
+            <enum name="circle" value="1" />
+            <enum name="text" value="2" />
+        </attr>
+
+        <attr name="boxWidth" format="dimension" />
+        <attr name="boxHeight" format="dimension" />
+        <attr name="boxWidthPercent" format="float" />
+        <attr name="boxHeightRatio" format="float" />
+        <attr name="boxMeasureMode" format="enum">
+            <enum name="bound" value="0" />
+            <enum name="fill" value="1" />
+            <enum name="free" value="2" />
+        </attr>
+        <attr name="boxChainStyle" format="enum">
+            <enum name="free" value="0" />
+            <enum name="spread" value="1" />
+            <enum name="spread_inside" value="2" />
+            <enum name="packet" value="3" />
+        </attr>
+
+
+        <attr name="boxBackgroundColor" format="color|reference" />
+        <attr name="boxBordColor" format="color|reference" />
+        <attr name="boxType" format="enum">
+            <enum name="rect" value="0" />
+            <enum name="oval" value="1" />
+            <enum name="underline" value="2" />
+        </attr>
+
+        <attr name="boxSpace" format="dimension" />
+        <attr name="boxSpacePercent" format="float" />
+
+        <attr name="boxBorderSize" format="dimension" />
+
+        <attr name="rectBoxRadius" format="dimension" />
+        <attr name="mergeRectBoxEnabled" format="boolean" />
+        <attr name="mergedRectBoxDividerWidth" format="dimension" />
+
+        <attr name="cursorEnabled" format="boolean" />
+        <attr name="cursorWidth" format="dimension" />
+        <attr name="cursorMarginTop" format="dimension" />
+        <attr name="cursorMarginBottom" format="dimension" />
+        <attr name="cursorColor" format="color|reference" />
+
+    </declare-styleable>
+
+</resources>
