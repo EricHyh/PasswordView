@@ -32,7 +32,7 @@ ext {
     groupId = 'com.hyh.widget'
     artifactId = 'passwordview'
 
-    publishVersion = '1.0.0-alpha1'
+    publishVersion = '1.0.0-alpha2'
     desc = 'password input widget'
 }
 

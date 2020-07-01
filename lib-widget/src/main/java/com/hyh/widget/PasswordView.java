@@ -318,7 +318,9 @@ public class PasswordView extends EditText implements TextWatcher {
             float bottom = mMeasured.measureContentHeight - (getPaddingTop() + getPaddingBottom()) - boxBorderSize * 0.5f;
             mTempRectF.set(left, top, right, bottom);
 
-            canvas.drawRoundRect(mTempRectF, mRectBoxRadius, mRectBoxRadius, mBoxBoardPaint);
+            if (boxBorderSize > 0) {
+                canvas.drawRoundRect(mTempRectF, mRectBoxRadius, mRectBoxRadius, mBoxBoardPaint);
+            }
 
             RectF lastBoxRectF = null;
 
@@ -371,10 +373,7 @@ public class PasswordView extends EditText implements TextWatcher {
 
                 mTempRectF.set(left, top, right, bottom);
 
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    int saveLayer = canvas.saveLayer(0, 0, canvas.getWidth(), canvas.getHeight(), mBoxBackgroundPaint);
-                    canvas.drawRoundRect(mTempRectF, mRectBoxRadius, mRectBoxRadius, mBoxBoardPaint);
-
+                if (boxBorderSize == 0) {
                     RectF boxRectF;
                     if (mBoxRectFs.size() > index) {
                         boxRectF = mBoxRectFs.get(index);
@@ -382,36 +381,52 @@ public class PasswordView extends EditText implements TextWatcher {
                         boxRectF = new RectF();
                         mBoxRectFs.add(boxRectF);
                     }
-                    left += boxBorderSize * 0.5f;
-                    top += boxBorderSize * 0.5f;
-                    right -= boxBorderSize * 0.5f;
-                    bottom -= boxBorderSize * 0.5f;
                     boxRectF.set(left, top, right, bottom);
-
-
-                    mBoxBackgroundPaint.setXfermode(mXfermode);
                     canvas.drawRoundRect(mTempRectF, mRectBoxRadius, mRectBoxRadius, mBoxBackgroundPaint);
-                    mBoxBackgroundPaint.setXfermode(null);
 
-                    canvas.restoreToCount(saveLayer);
-                } else {
-                    canvas.drawRoundRect(mTempRectF, mRectBoxRadius, mRectBoxRadius, mBoxBoardPaint);
+                }else {
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                        int saveLayer = canvas.saveLayer(0, 0, canvas.getWidth(), canvas.getHeight(), mBoxBackgroundPaint);
+                        canvas.drawRoundRect(mTempRectF, mRectBoxRadius, mRectBoxRadius, mBoxBoardPaint);
 
-                    RectF boxRectF;
-                    if (mBoxRectFs.size() > index) {
-                        boxRectF = mBoxRectFs.get(index);
+                        RectF boxRectF;
+                        if (mBoxRectFs.size() > index) {
+                            boxRectF = mBoxRectFs.get(index);
+                        } else {
+                            boxRectF = new RectF();
+                            mBoxRectFs.add(boxRectF);
+                        }
+                        left += boxBorderSize * 0.5f;
+                        top += boxBorderSize * 0.5f;
+                        right -= boxBorderSize * 0.5f;
+                        bottom -= boxBorderSize * 0.5f;
+                        boxRectF.set(left, top, right, bottom);
+
+
+                        mBoxBackgroundPaint.setXfermode(mXfermode);
+                        canvas.drawRoundRect(mTempRectF, mRectBoxRadius, mRectBoxRadius, mBoxBackgroundPaint);
+                        mBoxBackgroundPaint.setXfermode(null);
+
+                        canvas.restoreToCount(saveLayer);
                     } else {
-                        boxRectF = new RectF();
-                        mBoxRectFs.add(boxRectF);
-                    }
-                    left += boxBorderSize * 0.5f;
-                    top += boxBorderSize * 0.5f;
-                    right -= boxBorderSize * 0.5f;
-                    bottom -= boxBorderSize * 0.5f;
-                    boxRectF.set(left, top, right, bottom);
+                        canvas.drawRoundRect(mTempRectF, mRectBoxRadius, mRectBoxRadius, mBoxBoardPaint);
 
-                    float boxBackgroundRadius = getBoxBackgroundRadius();
-                    canvas.drawRoundRect(boxRectF, boxBackgroundRadius, boxBackgroundRadius, mBoxBackgroundPaint);
+                        RectF boxRectF;
+                        if (mBoxRectFs.size() > index) {
+                            boxRectF = mBoxRectFs.get(index);
+                        } else {
+                            boxRectF = new RectF();
+                            mBoxRectFs.add(boxRectF);
+                        }
+                        left += boxBorderSize * 0.5f;
+                        top += boxBorderSize * 0.5f;
+                        right -= boxBorderSize * 0.5f;
+                        bottom -= boxBorderSize * 0.5f;
+                        boxRectF.set(left, top, right, bottom);
+
+                        float boxBackgroundRadius = getBoxBackgroundRadius();
+                        canvas.drawRoundRect(boxRectF, boxBackgroundRadius, boxBackgroundRadius, mBoxBackgroundPaint);
+                    }
                 }
             }
         }
