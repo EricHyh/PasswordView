@@ -384,7 +384,7 @@ public class PasswordView extends EditText implements TextWatcher {
                     boxRectF.set(left, top, right, bottom);
                     canvas.drawRoundRect(mTempRectF, mRectBoxRadius, mRectBoxRadius, mBoxBackgroundPaint);
 
-                }else {
+                } else {
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                         int saveLayer = canvas.saveLayer(0, 0, canvas.getWidth(), canvas.getHeight(), mBoxBackgroundPaint);
                         canvas.drawRoundRect(mTempRectF, mRectBoxRadius, mRectBoxRadius, mBoxBoardPaint);
@@ -517,11 +517,7 @@ public class PasswordView extends EditText implements TextWatcher {
 
             mTempRectF.set(left, top, right, bottom);
 
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                int saveLayer = canvas.saveLayer(0, 0, canvas.getWidth(), canvas.getHeight(), mBoxBackgroundPaint);
-
-                canvas.drawOval(mTempRectF, mBoxBoardPaint);
-
+            if (boxBorderSize == 0) {
                 RectF boxRect;
                 if (mBoxRectFs.size() > index) {
                     boxRect = mBoxRectFs.get(index);
@@ -529,35 +525,51 @@ public class PasswordView extends EditText implements TextWatcher {
                     boxRect = new RectF();
                     mBoxRectFs.add(boxRect);
                 }
-                left += boxBorderSize * 0.5f;
-                top += boxBorderSize * 0.5f;
-                right -= boxBorderSize * 0.5f;
-                bottom -= boxBorderSize * 0.5f;
                 boxRect.set(left, top, right, bottom);
-
-                mBoxBackgroundPaint.setXfermode(mXfermode);
-                canvas.drawOval(mTempRectF, mBoxBackgroundPaint);
-                mBoxBackgroundPaint.setXfermode(null);
-
-                canvas.restoreToCount(saveLayer);
-            } else {
-
-                canvas.drawOval(mTempRectF, mBoxBoardPaint);
-
-                RectF boxRect;
-                if (mBoxRectFs.size() > index) {
-                    boxRect = mBoxRectFs.get(index);
-                } else {
-                    boxRect = new RectF();
-                    mBoxRectFs.add(boxRect);
-                }
-                left += boxBorderSize * 0.5f;
-                top += boxBorderSize * 0.5f;
-                right -= boxBorderSize * 0.5f;
-                bottom -= boxBorderSize * 0.5f;
-                boxRect.set(left, top, right, bottom);
-
                 canvas.drawOval(boxRect, mBoxBackgroundPaint);
+            } else {
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                    int saveLayer = canvas.saveLayer(0, 0, canvas.getWidth(), canvas.getHeight(), mBoxBackgroundPaint);
+
+                    canvas.drawOval(mTempRectF, mBoxBoardPaint);
+
+                    RectF boxRect;
+                    if (mBoxRectFs.size() > index) {
+                        boxRect = mBoxRectFs.get(index);
+                    } else {
+                        boxRect = new RectF();
+                        mBoxRectFs.add(boxRect);
+                    }
+                    left += boxBorderSize * 0.5f;
+                    top += boxBorderSize * 0.5f;
+                    right -= boxBorderSize * 0.5f;
+                    bottom -= boxBorderSize * 0.5f;
+                    boxRect.set(left, top, right, bottom);
+
+                    mBoxBackgroundPaint.setXfermode(mXfermode);
+                    canvas.drawOval(mTempRectF, mBoxBackgroundPaint);
+                    mBoxBackgroundPaint.setXfermode(null);
+
+                    canvas.restoreToCount(saveLayer);
+                } else {
+
+                    canvas.drawOval(mTempRectF, mBoxBoardPaint);
+
+                    RectF boxRect;
+                    if (mBoxRectFs.size() > index) {
+                        boxRect = mBoxRectFs.get(index);
+                    } else {
+                        boxRect = new RectF();
+                        mBoxRectFs.add(boxRect);
+                    }
+                    left += boxBorderSize * 0.5f;
+                    top += boxBorderSize * 0.5f;
+                    right -= boxBorderSize * 0.5f;
+                    bottom -= boxBorderSize * 0.5f;
+                    boxRect.set(left, top, right, bottom);
+
+                    canvas.drawOval(boxRect, mBoxBackgroundPaint);
+                }
             }
         }
 
@@ -587,7 +599,9 @@ public class PasswordView extends EditText implements TextWatcher {
             float stopX = startX + measureBoxWidth + boxBorderSize * 2;
             float stopY = startY;
 
-            canvas.drawLine(startX, startY, stopX, stopY, mBoxBoardPaint);
+            if (boxBorderSize > 0) {
+                canvas.drawLine(startX, startY, stopX, stopY, mBoxBoardPaint);
+            }
 
             RectF boxRect;
             if (mBoxRectFs.size() > index) {
